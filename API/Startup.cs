@@ -27,9 +27,6 @@ namespace API
         {
             _config = config;
 
-
-
-
         }
 
 
