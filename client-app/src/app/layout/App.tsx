@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Container, Header, List } from 'semantic-ui-react';
 import { Activity } from '../models/activity';
 import NavBar from './NavBar';
-import ActivityDashBoard from '../../features/activities/DashBoard';
+import ActivityDashBoard from '../../features/activities/ActivityDashBoard';
 
 function App() {
 
