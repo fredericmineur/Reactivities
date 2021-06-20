@@ -19,15 +19,15 @@ function App() {
       })
   }, [])
 
-  function handleSelectActivity (id: string) {
-    setSelectedActivity(activities.find(x => x.id===id));
+  function handleSelectActivity(id: string) {
+    setSelectedActivity(activities.find(x => x.id === id));
   }
 
-  function handleCancelSelectActivity () {
+  function handleCancelSelectActivity() {
     setSelectedActivity(undefined);
   }
 
-  function handleFormOpen(id?: string){
+  function handleFormOpen(id?: string) {
     id ? handleSelectActivity(id) : handleCancelSelectActivity();
     setEditMode(true);
   }
@@ -36,18 +36,27 @@ function App() {
     setEditMode(false);
   }
 
+function handleCreateOrEditActivity(activity: Activity) {
+  activity.id ?
+    setActivities([...activities.filter(x => x.id !== activity.id), activity]) :
+    setActivities([...activities, activity]);
+  setEditMode(false);
+  setSelectedActivity(activity);
+}
+
   return (
     <>
       <NavBar openForm={handleFormOpen} />
-      <Container style={{marginTop: "7em"}}>
-        <ActivityDashBoard 
-        activities={activities} 
-        selectedActivity = {selectedActivity}
-        selectActivity = {handleSelectActivity}
-        cancelSelectActivity = {handleCancelSelectActivity} 
-        editMode = {editMode}
-        openForm={handleFormOpen}
-        closeForm={handleFormClose}
+      <Container style={{ marginTop: "7em" }}>
+        <ActivityDashBoard
+          activities={activities}
+          selectedActivity={selectedActivity}
+          selectActivity={handleSelectActivity}
+          cancelSelectActivity={handleCancelSelectActivity}
+          editMode={editMode}
+          openForm={handleFormOpen}
+          closeForm={handleFormClose}
+          editOrCreate={handleCreateOrEditActivity}
         />
       </Container>
     </>
