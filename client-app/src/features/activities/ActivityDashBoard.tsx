@@ -1,42 +1,35 @@
+import { observer } from "mobx-react-lite";
 import React from "react";
 import { Grid } from "semantic-ui-react";
 import { Activity } from "../../app/models/activity";
+import { useStore } from "../../app/stores/store";
 import ActivityList from "./ActivityList";
 import ActivityDetails from "./details/ActivityDetails";
 import ActivityForm from "./form/ActivityForm";
 
 interface Props {
     activities: Activity[];
-    selectedActivity: Activity | undefined;
-    selectActivity: (id: string) => void;
-    cancelSelectActivity: () => void;
-    editMode: boolean;
-    openForm: (id: string) => void;
-    closeForm: () => void;
     editOrCreate: (activity: Activity) => void;
     deleteActivity: (id: string) => void;
     submitting: boolean;
 
 }
 
-export default function ActivityDashBoard({ activities, selectedActivity,
-    selectActivity, cancelSelectActivity, editMode, openForm, closeForm, editOrCreate, deleteActivity, submitting }: Props) {
+export default observer(function ActivityDashBoard({ activities,  editOrCreate, deleteActivity, submitting }: Props) {
+    
+    const {activityStore} = useStore();
+    const {selectedActivity, editMode} = activityStore;
+
     return (
         <Grid>
             <Grid.Column width='10'>
-                <ActivityList activities={activities} selectActivity={selectActivity} deleteActivity={deleteActivity} submitting={submitting} />
+                <ActivityList activities={activities}  deleteActivity={deleteActivity} submitting={submitting} />
             </Grid.Column>
             <Grid.Column width='6'>
                 {selectedActivity && !editMode &&
-                    <ActivityDetails
-                        activity={selectedActivity}
-                        cancelSelectActivity={cancelSelectActivity}
-                        openForm={openForm}
-                    />}
+                    <ActivityDetails />}
                 {editMode &&
                     <ActivityForm
-                        closeForm={closeForm}
-                        activity={selectedActivity}
                         editOrCreate={editOrCreate}
                         submitting={submitting}
                     />}
@@ -45,4 +38,4 @@ export default function ActivityDashBoard({ activities, selectedActivity,
         </Grid>
 
     );
-}
+})
