@@ -3,7 +3,6 @@ import { Container } from 'semantic-ui-react';
 import { Activity } from '../models/activity';
 import NavBar from './NavBar';
 import ActivityDashBoard from '../../features/activities/ActivityDashBoard';
-import { v4 as uuid } from 'uuid';
 import agent from '../api/agent';
 import LoadingComponent from './LoadingComponent';
 import { useStore } from '../stores/store';
@@ -29,25 +28,7 @@ function App() {
 
 
 
-  function handleCreateOrEditActivity(activity: Activity) {
-    setSubmitting(true);
-    if (activity.id) {
-      agent.Activities.update(activity).then(() => {
-        setActivities([...activities.filter(x => x.id !== activity.id), activity]);
-        setEditMode(false);
-        setSubmitting(false);
-        setSelectedActivity(activity);
-      });
-    } else {
-      activity.id = uuid();
-      agent.Activities.create(activity).then(() => {
-        setActivities([...activities, activity]);
-        setEditMode(false);
-        setSubmitting(false);
-        setSelectedActivity(activity);
-      })
-    }
-  }
+  
 
   function handleDeleteActivity(id: string) {
     setSubmitting(true);
@@ -66,7 +47,7 @@ function App() {
 
         <ActivityDashBoard
           activities={activityStore.activities}
-          editOrCreate={handleCreateOrEditActivity}
+
           deleteActivity={handleDeleteActivity}
           submitting={submitting}
         />
