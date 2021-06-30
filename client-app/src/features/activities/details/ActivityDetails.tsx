@@ -28,8 +28,8 @@ export default observer (function ActivityDetails() {
             </Card.Content>
             <Card.Content extra>
                 <Button.Group widths='2' >
-                    <Button onClick={()=> activityStore.openForm(activity.id)} basic color='blue' content='Edit' />
-                    <Button onClick={activityStore.cancelSelectedActivity} basic color='grey' content='Cancel' />
+                    <Button  basic color='blue' content='Edit' />
+                    <Button  basic color='grey' content='Cancel' />
                 </Button.Group>
             </Card.Content>
         </Card>
