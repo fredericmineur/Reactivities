@@ -1,57 +1,20 @@
 import { observer } from "mobx-react-lite";
-import React, { SyntheticEvent } from "react";
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { Button, Item, Label, Segment } from "semantic-ui-react";
+import React from "react";
+import { Item,  Segment } from "semantic-ui-react";
 import { useStore } from "../../app/stores/store";
-
-
+import ActivityListItem from "./dashboard/ActivityListItem";
 
 
 export default observer (function ActivityList() {
 
     const {activityStore} = useStore();
-    const {deleteActivity, loading, activitiesByDate} = activityStore;
-
-    const [target, setTarget] = useState('');
-
-    function handleActivityDelete(e: SyntheticEvent<HTMLButtonElement>, id: string) {
-
-        setTarget(e.currentTarget.name);
-
-        deleteActivity(id);
-
-    }
-
+    const {activitiesByDate} = activityStore;
 
     return (
         <Segment>
             <Item.Group divided>
                 {activitiesByDate.map(activity =>
-                    <Item key={activity.id}>
-                        <Item.Content>
-                            <Item.Header as='a'>{activity.title}</Item.Header>
-                            <Item.Meta>{activity.date}</Item.Meta>
-                            <Item.Description>
-                                <div>{activity.description}</div>
-                                <div>{activity.city}, {activity.venue}</div>
-                            </Item.Description>
-                            <Item.Extra>
-                                <Button
-                                    name={activity.id} 
-                                    loading={loading && target === activity.id}
-                                    onClick={(e) => {handleActivityDelete(e, activity.id)}}     
-                                    floated='right'
-                                    content='Delete'
-                                    color='red'
-                                />
-                                <Button as={Link} to={`/activities/${activity.id}`} floated='right' content='View' color='blue' />
-                                <Label basic content={activity.category} />
-                            </Item.Extra>
-
-                        </Item.Content>
-
-                    </Item>
+                    <ActivityListItem activity={activity} key={activity.id} />
                 )}
             </Item.Group>
         </Segment>

@@ -1,12 +1,12 @@
 import React from 'react';
 import { Container } from 'semantic-ui-react';
 import NavBar from './NavBar';
-import ActivityDashBoard from '../../features/activities/ActivityDashBoard';
 import { observer } from 'mobx-react-lite';
 import HomePage from '../../features/home/HomePage';
 import { Route, useLocation } from 'react-router-dom';
-import ActivityForm from '../../features/activities/form/ActivityForm';
+import ActivityForm from '../../features/activities/dashboard/form/ActivityForm';
 import ActivityDetails from '../../features/activities/details/ActivityDetails';
+import ActivityDashBoard from '../../features/activities/dashboard/ActivityDashBoard';
 
 
 

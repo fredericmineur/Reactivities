@@ -3,8 +3,8 @@ import React, { ChangeEvent, useState } from "react";
 import { useEffect } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
 import { Button, Form, Segment} from "semantic-ui-react";
-import LoadingComponent from "../../../app/layout/LoadingComponent";
-import { useStore } from "../../../app/stores/store";
+import LoadingComponent from "../../../../app/layout/LoadingComponent";
+import { useStore } from "../../../../app/stores/store";
 import { v4 as uuid } from 'uuid';
 
 
