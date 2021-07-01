@@ -16,9 +16,20 @@ export default class ActivityStore {
         makeAutoObservable(this);
     }
 
+    //computed/derived property
     get activitiesByDate() {
         return Array.from(this.activityRegistry.values())
             .sort((a, b) => Date.parse(a.date) - Date.parse(b.date));
+    }
+
+    get groupedActivities() {
+        return Object.entries(
+            this.activitiesByDate.reduce((activities, activity) => {
+                const date = activity.date;
+                activities[date] = activities[date] ? [...activities[date], activity] : [activity];
+                return activities;
+            }, {} as { [key: string]: Activity[] })
+        )
     }
 
     loadActivities = async () => {
@@ -41,11 +52,11 @@ export default class ActivityStore {
             this.selectedActivity = activity;
             return activity;
         } else {
-            this.loadingInitial=true;
+            this.loadingInitial = true;
             try {
                 activity = await agent.Activities.details(id);
                 this.setActivity(activity);
-                runInAction(()=>{
+                runInAction(() => {
                     this.selectedActivity = activity;
                 })
                 this.setLoadingInitial(false);
@@ -70,7 +81,7 @@ export default class ActivityStore {
         this.loadingInitial = state;
     }
 
-    
+
 
     createActivity = async (activity: Activity) => {
         this.loading = true;
