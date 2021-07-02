@@ -21,11 +21,11 @@ namespace Application.Activities
                 _context = context;
             }
 
-public async Task<Result<List<Activity>>> Handle(Query request, CancellationToken cancellationToken)
-{
-    var activities = await _context.Activities.ToListAsync();
-    return Result<List<Activity>>.Success(activities);
-}
+            public async Task<Result<List<Activity>>> Handle(Query request, CancellationToken cancellationToken)
+            {
+                var activities = await _context.Activities.ToListAsync();
+                return Result<List<Activity>>.Success(activities);
+            }
         }
     }
 }
