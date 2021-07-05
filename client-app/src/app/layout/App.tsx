@@ -3,12 +3,13 @@ import { Container } from 'semantic-ui-react';
 import NavBar from './NavBar';
 import { observer } from 'mobx-react-lite';
 import HomePage from '../../features/home/HomePage';
-import { Route, useLocation } from 'react-router-dom';
+import { Route, Switch, useLocation } from 'react-router-dom';
 import ActivityForm from '../../features/activities/dashboard/form/ActivityForm';
 import ActivityDetails from '../../features/activities/details/ActivityDetails';
 import ActivityDashBoard from '../../features/activities/dashboard/ActivityDashBoard';
 import TestErrors from '../../features/errors/TestError';
 import { ToastContainer } from 'react-toastify';
+import NotFound from '../../features/errors/NotFound';
 
 
 
@@ -25,12 +26,16 @@ function App() {
         render={() => (
           <>
             <NavBar />
-            <Container style={{ marginTop: "7em" }}>
-              <Route exact path='/activities' component={ActivityDashBoard} />
-              <Route path='/activities/:id' component={ActivityDetails} />
-              <Route key={location.key} path={['/createActivity', '/manage/:id']} component={ActivityForm} />
-              <Route path='/errors' component={TestErrors} />
-            </Container>
+<Container style={{ marginTop: "7em" }}>
+  <Switch>
+    <Route exact path='/activities' component={ActivityDashBoard} />
+    <Route path='/activities/:id' component={ActivityDetails} />
+    <Route key={location.key} path={['/createActivity', '/manage/:id']} component={ActivityForm} />
+    <Route path='/errors' component={TestErrors} />
+    <Route component={NotFound} />
+  </Switch>
+  
+</Container>
           </>
         )}
       />
