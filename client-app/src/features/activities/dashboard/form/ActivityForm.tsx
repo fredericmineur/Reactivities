@@ -12,6 +12,7 @@ import MytextInput from "../../../../app/common/form/MyTextInput";
 import MyTextArea from "../../../../app/common/form/MyTextArea";
 import MySelectInput from "../../../../app/common/form/MySelectInput";
 import { categoryOptions } from "../../../../app/common/options/options";
+import MyDateInput from "../../../../app/common/form/MyDateInput";
 
 
 
@@ -86,7 +87,13 @@ export default observer(function ActivityForm() {
         <MytextInput name='title' placeholder='Title' />
         <MyTextArea placeholder='Description' rows={3} name='description' />
         <MySelectInput placeholder='Category' name='category' options={categoryOptions} />
-        <MytextInput placeholder='Date' name='date' />
+        <MyDateInput 
+            placeholderText='Date'
+            name='date'
+            showTimeSelect
+            timeCaption='time'
+            dateFormat='MMMM d, yyyy h:mm aa'
+        />
         <MytextInput placeholder='City' name='city' />
         <MytextInput placeholder='Venue' name='venue' />
         <Button floated='right' positive type='submit' content='Submit' loading={loading} />
